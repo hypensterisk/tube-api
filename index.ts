@@ -24,7 +24,7 @@ export class Youtube {
           if (data.error) {
             Promise.reject(data.error?.message);
           } else {
-            console.info('Connected to Youtube API successfully');
+            //console.info('Connected to Youtube API successfully');
           }
         });
     }
@@ -90,7 +90,7 @@ export class Youtube {
      */
 
     public async channelDetails(channel_id: string): Promise<channelDetails> {
-      console.info('Fetching Channel Information...');
+      //console.info('Fetching Channel Information...');
 
       const channelUrl = `${this.CHANNELS_URL}id=${channel_id}&part=contentDetails,snippet,statistics&key=${this.API_KEY}`;
       const data: contentDetails = await this.getData(channelUrl);
@@ -112,21 +112,21 @@ export class Youtube {
      */
 
     public async videosList(uploads_id: string, videos: [videoDetails]): Promise<[videoDetails]> {
-      console.info('Fetching Video List...');
+      //console.info('Fetching Video List...');
 
       const listUrl = `${this.PLAYLIST_URL}playlistId=${uploads_id}&part=snippet&maxResults=50&key=${this.API_KEY}`;
 
       let listDetails: listDetails = await this.getList(listUrl);
 
       await this.getVideos(videos, listDetails);
-      console.info(`Fetching videos in progress... ${videos.length} videos fetched`);
+      //console.info(`Fetching videos in progress... ${videos.length} videos fetched`);
 
       while (listDetails.nextPageToken) {
         listDetails = await this.getList(listUrl, listDetails.nextPageToken);
         await this.getVideos(videos, listDetails);
-        console.info(`Fetching videos in progress... ${videos.length} videos fetched`);
+        //console.info(`Fetching videos in progress... ${videos.length} videos fetched`);
       }
-      console.info('Videos fetched successfully');
+      //console.info('Videos fetched successfully');
       return videos;
     }
 
